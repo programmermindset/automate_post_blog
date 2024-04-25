@@ -1,0 +1,3 @@
+h113 JavaScript Animation Libraries for Designers
+
+Animation is a good web designer’s secret weapon. To animate means to bring to life, and a few little animated touches can liven up even the dullest content.

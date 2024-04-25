@@ -1,0 +1,97 @@
+import React from 'react'
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import { whatsWebsite } from '../../tools/development';
+import LessLargeCardArticleContainer from '../../components/LessLargeCardArticleContainer';
+
+const BlogPostPage = () => { 
+    
+
+
+  return (
+    <>
+     
+ 
+      <Header />
+        <main>
+            <div className='main-container-post'>
+                <div className='post-center'>
+                {/* <!-- -----------------------------------post title------------------------ --> */}
+                        <h1  className="big-title">
+                            {whatsWebsite.title}
+                        </h1>
+                        
+                        <div className="author-container">
+                            <div>
+                                <img src={whatsWebsite.authorPicture} alt="" />
+                            </div>
+                            <div><span>By</span> <span className="author-name">{whatsWebsite.author}</span><span className="date">{whatsWebsite.date}</span></div>
+                            
+                        </div>
+                           
+                                           
+                
+                
+       
+                
+                {/* <!-- the author section --> */}
+                
+                    <div className="author-container-bottom">
+                        <div>{whatsWebsite.author}</div>
+                        <div className="author-text">
+                            <p>{whatsWebsite.authorPresent}</p>
+                        </div>
+                    </div>
+                
+                    <h2 className="h2-title" style={{
+                      textAlign : 'center'
+                      ,marginTop : '75px'
+                    }}>
+                           Related articles
+                    </h2>
+                <LessLargeCardArticleContainer />       
+                </div>
+
+                <section className="popular-posts-sidebar-container">
+                    <h3>popular posts</h3>
+                    <article className="article-sidebar-container">
+                        <h4>30 Amazing chrome Extensions for Designers and Developers</h4>
+                        <div>
+                            <img src="mohammad-rahmani-8qEB0fTe9Vw-unsplash.jpg" alt="" />
+                        </div>
+                    </article>
+                    <article className="article-sidebar-container">
+                        <h4>30 Amazing chrome Extensions for Designers and Developers</h4>
+                        <div>
+                            <img src="mohammad-rahmani-8qEB0fTe9Vw-unsplash.jpg" alt="" />
+                        </div>
+                    </article>
+                    <article className="article-sidebar-container">
+                        <h4>30 Amazing chrome Extensions for Designers and Developers</h4>
+                        <div>
+                            <img src="mohammad-rahmani-8qEB0fTe9Vw-unsplash.jpg" alt="" />
+                        </div>
+                    </article>
+                    <article className="article-sidebar-container">
+                        <h4>30 Amazing chrome Extensions for Designers and Developers</h4>
+                        <div>
+                            <img src="mohammad-rahmani-8qEB0fTe9Vw-unsplash.jpg" alt="" />
+                        </div>
+                    </article>
+                    <article className="article-sidebar-container">
+                        <h4>30 Amazing chrome Extensions for Designers and Developers</h4>
+                        <div>
+                            <img src="mohammad-rahmani-8qEB0fTe9Vw-unsplash.jpg" alt="" />
+                        </div>
+                    </article>
+                </section> 
+            </div>
+        </main>
+      <Footer />
+ 
+   
+    </>
+  )
+}
+
+export default BlogPostPage
