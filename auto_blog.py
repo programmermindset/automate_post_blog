@@ -1,33 +1,10 @@
-tag_and_and_attribute_dic ={
-    "pa" : {
-        "open" : '<p className="paragraph">',
-        "close" : '</p>'
-    },
-    "h2" : {
-        "open" : '<h2 className="h2-title">',
-        "close" : "</h2>"
-    },
-    "h3" : {
-        "open" : '<h3 className="h3-title">',
-        "close" : "</h3>"
-    },
-    "ol" : {
-        "open" : '<ol className="web-cat-list">',
-        "close" : '</ol>'
-    },
-    "li" : {
-        "open" : "<li>",
-        "close" : "</li>"
-    },
-    "ul" : {
-        "open" : '<ul className="web-comp-list">',
-        "close" : '</ul>'
-    }
-}
-tab = "\t" + "\t" +"\t" +"\t" +"\t" 
-start_line_number = 32
+from dependecies import get_first_and_second_letter,add_html_elements,tag_and_and_attribute_dic,create_blog_post_info,create_blog_post_link
+
+
+start_line_number = 36
 blog_post_file_path = "C:/Users/mona_gmg/Desktop/automate_post/text_init.txt"
 source_file_path = "C:/Users/mona_gmg/Desktop/automate_post/model.txt"
+post_info_path = "C:/Users/mona_gmg/Desktop/automate_post/post_info.txt"
 
 print("choose the destination folder : \n 1.development\n 2.courses\n 3.news\n 4.projects \n" )
 destination_folder = input("destination : ")
@@ -44,35 +21,66 @@ elif destination_folder == "4" or "projects":
     folder_name = "projects"
 
 destination_file_path = f"C:/Users/mona_gmg/Desktop/front-my-site/realworldprojectdev-front/src/blog_posts/{folder_name}/{post_name}.js"
+tools_file_path = f"C:/Users/mona_gmg/Desktop/front-my-site/realworldprojectdev-front/src/blog_posts/{folder_name}.js"
+post_blog_props = {
+    "big_title" : '{' + f"{post_name.lower()}.title" + "}",
+    "description" : '{' + f"{post_name.lower()}.description" + "}",
+    "author_picture" : '{' + f"{post_name.lower()}.authorPicture" + "}",
+    "author_name" : '{' + f"{post_name.lower()}.authorName" + "}",
+    "post_date" : '{' + f"{post_name.lower()}.date" + "}",
+    "author_present" : '{' + f"{post_name.lower()}.authorPresent" + "}",
+    "relative_link" : '{' + f"{post_name.lower()}.relativeLink" + "}",
 
-# with open(source_file_path,"r") as source_file,open(destination_file_path,"w") as destination_file : 
-#     file_content = source_file.read()
+}
 
-#     destination_file.write(file_content)
+ 
 
-#     print(f'the file {source_file_path} has been copied to {destination_file_path}.')
+def get_first_and_second_letter(blog):
+    first_and_second_letter = blog[0:2]
+
+    return first_and_second_letter
+
+def add_html_elements(first_and_second_letter,blog):
+    modify_blog_line = blog[2:]
+    tab = "\t" + "\t" +"\t" +"\t" +"\t" 
+    new_blog_line = tab + tag_and_and_attribute_dic[first_and_second_letter]["open"] + modify_blog_line + tab  + tag_and_and_attribute_dic[first_and_second_letter]["close"] +"\n"
+
+    return new_blog_line
+
 
 model_list = []
 blog_post_list = []
 new_blog_post_list = []
 
 # ------open files--------
-with open(source_file_path,"r") as source_file, open(blog_post_file_path,"r") as blog_post_file: 
+with open(post_info_path,"r") as post_file, open(source_file_path,"r") as source_file, open(blog_post_file_path,"r") as blog_post_file: 
+    post_info_list = post_file.readlines()
     model_list = source_file.readlines()
     blog_post_list = blog_post_file.readlines()
+     
+# --------create recup images and add post info in the file----------
+post_images_recup = post_info_list[6:]
+with open(tools_file_path,"a") as tools_file:
+    tools_file.writelines(create_blog_post_info(post_name,create_blog_post_link(post_info_list[0]),post_info_list[0],post_info_list[1],post_info_list[2],post_info_list[3],post_info_list[4],post_info_list[5],post_images_recup))
+
 
 # -------text-init modif and add tags-------
 for blog in blog_post_list :
-    get_first_and_second_letter = blog[0:2]
-    if get_first_and_second_letter == "pa" :  
-        modify_blog_line = blog[2:]
-        new_blog_line = tab + tag_and_and_attribute_dic["pa"]["open"] + modify_blog_line + tab  + tag_and_and_attribute_dic["pa"]["close"] +"\n"
-    elif get_first_and_second_letter == "h2" :  
-        modify_blog_line = blog[2:]
-        new_blog_line = tab + tag_and_and_attribute_dic["h2"]["open"] + modify_blog_line + tab  + tag_and_and_attribute_dic["h2"]["close"] + "\n"
-    elif get_first_and_second_letter == "h3" :  
-        modify_blog_line = blog[2:]
-        new_blog_line = tab + tag_and_and_attribute_dic["h3"]["open"] + modify_blog_line + tab  + tag_and_and_attribute_dic["h3"]["close"]  +"\n"
+
+    first_and_second_letter = get_first_and_second_letter(blog)
+
+    if first_and_second_letter == "pa" :  
+        new_blog_line = add_html_elements(first_and_second_letter,blog,img_path)
+    elif first_and_second_letter == "h2" :  
+       
+        new_blog_line = add_html_elements(first_and_second_letter,blog,img_path)
+    elif first_and_second_letter == "h3" :  
+       
+        new_blog_line = add_html_elements(first_and_second_letter,blog,img_path)
+    elif first_and_second_letter == "im" : 
+        new_blog_line = add_html_elements(first_and_second_letter,blog,img_path)
+
+
     new_blog_post_list.append(new_blog_line)
     
 # -------add blog into model-------
@@ -83,3 +91,6 @@ for new in new_blog_post_list :
 # -----------create file and add content---------
 with open(destination_file_path,"w") as destination_file : 
     destination_file.writelines(model_list)
+
+
+

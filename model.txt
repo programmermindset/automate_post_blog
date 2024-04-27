@@ -18,14 +18,18 @@ const BlogPostPage = () => {
                 <div className='post-center'>
                 {/* <!-- -----------------------------------post title------------------------ --> */}
                         <h1  className="big-title">
-                            {whatsWebsite.title}
                         </h1>
                         
                         <div className="author-container">
                             <div>
                                 <img src={whatsWebsite.authorPicture} alt="" />
                             </div>
-                            <div><span>By</span> <span className="author-name">{whatsWebsite.author}</span><span className="date">{whatsWebsite.date}</span></div>
+                            <div><span>By</span> <span className="author-name">
+                            {whatsWebsite.author}
+                            </span><span className="date">
+                            {whatsWebsite.date}
+                            </span>
+                            </div>
                             
                         </div>
                            
@@ -37,9 +41,13 @@ const BlogPostPage = () => {
                 {/* <!-- the author section --> */}
                 
                     <div className="author-container-bottom">
-                        <div>{whatsWebsite.author}</div>
+                        <div>
+                        {whatsWebsite.author}
+                        </div>
                         <div className="author-text">
-                            <p>{whatsWebsite.authorPresent}</p>
+                            <p>
+                            {whatsWebsite.authorPresent}
+                            </p>
                         </div>
                     </div>
                 
