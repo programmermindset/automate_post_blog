@@ -1,7 +1,6 @@
 import React from 'react'
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import { whatsWebsite } from '../../tools/development';
 import LessLargeCardArticleContainer from '../../components/LessLargeCardArticleContainer';
 
 const BlogPostPage = () => { 
@@ -22,12 +21,9 @@ const BlogPostPage = () => {
                         
                         <div className="author-container">
                             <div>
-                                <img src={whatsWebsite.authorPicture} alt="" />
                             </div>
                             <div><span>By</span> <span className="author-name">
-                            {whatsWebsite.author}
                             </span><span className="date">
-                            {whatsWebsite.date}
                             </span>
                             </div>
                             
@@ -42,11 +38,9 @@ const BlogPostPage = () => {
                 
                     <div className="author-container-bottom">
                         <div>
-                        {whatsWebsite.author}
                         </div>
                         <div className="author-text">
                             <p>
-                            {whatsWebsite.authorPresent}
                             </p>
                         </div>
                     </div>

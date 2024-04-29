@@ -26,23 +26,15 @@ tag_and_and_attribute_dic ={
     
 }
 
+
 def create_blog_post_info(post_name,relative_link,title,description,author_name,autho_picture,date,author_present,post_images):
-    return "export const {} = '{'".format(post_name) + f""" 
-                relativeLink : {relative_link},
-                title : {title},
-                description : {description},
-                authorName : {author_name},
-                authorPicture : {autho_picture},
-                date : {date},
-                authorPresent : {author_present},
-                post_images : {post_images}
-        
-            """ + "}"
+    new_line_plus_tab = "\n" + "\t"
+    return f"export const {post_name} = " + '{' + new_line_plus_tab + f"relativeLink : '{relative_link}',"+ new_line_plus_tab + f"title : '{title}',"+ new_line_plus_tab + f"description : '{description}',"+ new_line_plus_tab + f"authorName : '{author_name}',"+ new_line_plus_tab + f"authorPicture : '{autho_picture}',"+ new_line_plus_tab + f"date : '{date}',"+ new_line_plus_tab + f"authorPresent : '{author_present}',"+ new_line_plus_tab + f"post_images : {post_images} "+ new_line_plus_tab + "}"
   
 def create_blog_post_link(title):
     link = ""
     for t in title :
-        if t == " " : 
+        if t == " " or t == "," or t =="'": 
             t = "_"
         link = link + t
 
@@ -53,11 +45,11 @@ def get_first_and_second_letter(blog):
 
     return first_and_second_letter
 
-def add_html_elements(first_and_second_letter,blog,img_path):
+def add_html_elements(first_and_second_letter,blog,post_name,image_index):
     modify_blog_line = blog[2:]
     tab = "\t" + "\t" +"\t" +"\t" +"\t" 
-    if first_and_second_letter is not "im" : 
+    if first_and_second_letter != "im" : 
         new_blog_line = tab + tag_and_and_attribute_dic[first_and_second_letter]["open"] + modify_blog_line + tab  + tag_and_and_attribute_dic[first_and_second_letter]["close"] +"\n"
     else : 
-        new_blog_line = tab + "<img src='{'{}'}'".format(img_path) + "  alt='image' />"
+        new_blog_line = tab + "<img src={"+ post_name + ".post_images ["+str(image_index)+'] } alt="i am a image" />'
     return new_blog_line
