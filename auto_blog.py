@@ -21,9 +21,10 @@ def main():
     elif destination_folder == "4" or "projects": 
         folder_name = "projects"
 
-    destination_file_path = f"C:/Users/mona_gmg/Desktop/front-my-site/realworldprojectdev-front/src/blog_posts/{folder_name}/{post_name.capitalize()}.js"
+    post_name_page = f"{post_name.capitalize()}Page"
+    destination_file_path = f"C:/Users/mona_gmg/Desktop/front-my-site/realworldprojectdev-front/src/blog_posts/{folder_name}/{post_name_page}.js"
     tools_file_path = f"C:/Users/mona_gmg/Desktop/front-my-site/realworldprojectdev-front/src/tools/{folder_name}.js"
-
+    app_file_path = "C:/Users/mona_gmg/Desktop/front-my-site/realworldprojectdev-front/src/App.js"
 
     seven_tab = "\t" + "\t" + "\t" + "\t" + "\t" +"\t" + "\t"
     new_line = "\n"
@@ -45,11 +46,12 @@ def main():
     image_index = 0
 
     # ------open files--------
-    with open(post_info_path,"r") as post_file, open(source_file_path,"r") as source_file, open(blog_post_file_path,"r") as blog_post_file: 
+    with open(post_info_path,"r") as post_file, open(source_file_path,"r") as source_file, open(blog_post_file_path,"r") as blog_post_file,open(app_file_path,"r") as app_file: 
         post_info_list = post_file.readlines()
         model_list = source_file.readlines()
         blog_post_list = blog_post_file.readlines()
-        
+        app_file_list = app_file.readlines()
+
     # --------create recup images and add post info in the file----------
     post_image_recup_list = []
     for img in post_info_list[6:] : 
@@ -73,15 +75,15 @@ def main():
     # add blog title
     model_list.insert(20, post_blog_props["big_title"])
     # add authorpicture
-    model_list.insert(25,seven_tab + f"<img src={post_blog_props['author_picture']} alt='i am a image' />" + new_line)
+    model_list.insert(25,seven_tab + f"<img src={post_blog_props['author_picture']} alt='' />")
     # add author name
-    model_list.insert(27,post_blog_props["author_name"])
+    model_list.insert(29,post_blog_props["author_name"])
     # add date
-    model_list.insert(31,post_blog_props["post_date"])
+    model_list.insert(32,post_blog_props["post_date"])
     # author name bottom
-    model_list.insert(45,post_blog_props["author_name"])
+    model_list.insert(47,post_blog_props["author_name"])
     # author present
-    model_list.insert(49,post_blog_props["author_present"])
+    model_list.insert(51,post_blog_props["author_present"])
 
     # -------add blog into model-------
     for new in new_blog_post_list : 
@@ -92,7 +94,26 @@ def main():
     with open(destination_file_path,"w") as destination_file : 
         destination_file.writelines(model_list)
 
+    # get import index and route index
 
+    for app in range(len(app_file_list)) : 
+        if "function App()" in app_file_list[app]:
+            import_index = app
+        elif "{/* projects */}" in app_file_list[app] : 
+            project_section_link_index = app 
+        elif "{/* development */}" in app_file_list[app] : 
+            dev_section_link_index = app 
+        elif "{/* courses */}" in app_file_list[app] : 
+            courses_section_link_index = app 
+        elif "<Routes/>" in app_file_list[app] : 
+            closing_tag_routes_index = app 
+
+    # import file in the app.js
+    app_file_list.insert(import_index-1,"import {"+post_name_page+ '}' + " from './blog_posts/" + folder_name + "/"+post_name_page+"'\n")
+
+    # add link inside app file
+    if folder_name == "development":
+        app_file_list.insert(courses_section_link_index - 1,)
 
 if __name__ == "__main__" :
     main() 

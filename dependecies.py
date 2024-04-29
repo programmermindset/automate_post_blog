@@ -51,5 +51,5 @@ def add_html_elements(first_and_second_letter,blog,post_name,image_index):
     if first_and_second_letter != "im" : 
         new_blog_line = tab + tag_and_and_attribute_dic[first_and_second_letter]["open"] + modify_blog_line + tab  + tag_and_and_attribute_dic[first_and_second_letter]["close"] +"\n"
     else : 
-        new_blog_line = tab + "<img src={"+ post_name + ".post_images ["+str(image_index)+'] } alt="i am a image" />'
+        new_blog_line = tab + "<img src={"+ post_name + ".post_images["+str(image_index)+']} alt="" />'
     return new_blog_line

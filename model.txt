@@ -22,8 +22,10 @@ const BlogPostPage = () => {
                         <div className="author-container">
                             <div>
                             </div>
-                            <div><span>By</span> <span className="author-name">
-                            </span><span className="date">
+                            <div><span>By</span> 
+                            <span className="author-name">
+                            </span>
+                            <span className="date">
                             </span>
                             </div>
                             
