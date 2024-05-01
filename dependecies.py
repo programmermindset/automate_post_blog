@@ -29,7 +29,7 @@ tag_and_and_attribute_dic ={
 
 def create_blog_post_info(post_name,relative_link,title,description,author_name,autho_picture,date,author_present,post_images):
     new_line_plus_tab = "\n" + "\t"
-    return f"export const {post_name} = " + '{' + new_line_plus_tab + f"relativeLink : '{relative_link}',"+ new_line_plus_tab + f"title : '{title}',"+ new_line_plus_tab + f"description : '{description}',"+ new_line_plus_tab + f"authorName : '{author_name}',"+ new_line_plus_tab + f"authorPicture : '{autho_picture}',"+ new_line_plus_tab + f"date : '{date}',"+ new_line_plus_tab + f"authorPresent : '{author_present}',"+ new_line_plus_tab + f"post_images : {post_images} "+ new_line_plus_tab + "}"
+    return f"\nexport const {post_name} = " + '{' + new_line_plus_tab + f"relativeLink : '{relative_link}',"+ new_line_plus_tab + f"title : '{title}',"+ new_line_plus_tab + f"description : '{description}',"+ new_line_plus_tab + f"authorName : '{author_name}',"+ new_line_plus_tab + f"authorPicture : '{autho_picture}',"+ new_line_plus_tab + f"date : '{date}',"+ new_line_plus_tab + f"authorPresent : '{author_present}',"+ new_line_plus_tab + f"post_images : {post_images} "+ new_line_plus_tab + "}"
   
 def create_blog_post_link(title):
     link = ""

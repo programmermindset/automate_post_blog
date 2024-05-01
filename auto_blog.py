@@ -12,14 +12,15 @@ def main():
     post_name = input("enter the post name : ")
 
     folder_name = ""
-    if destination_folder == '1' or "development": 
+    if destination_folder == '1' or destination_folder == "development": 
         folder_name = "development"
-    elif destination_folder == "2" or "courses": 
+    elif destination_folder == "2" or destination_folder == "courses": 
         folder_name = "courses"
-    elif destination_folder == "3" or "news": 
+    elif destination_folder == "3" or destination_folder == "news": 
         folder_name = "news"
-    elif destination_folder == "4" or "projects": 
+    elif destination_folder == "4" or destination_folder == "projects": 
         folder_name = "projects"
+    
 
     post_name_page = f"{post_name.capitalize()}Page"
     destination_file_path = f"C:/Users/mona_gmg/Desktop/front-my-site/realworldprojectdev-front/src/blog_posts/{folder_name}/{post_name_page}.js"
@@ -94,26 +95,38 @@ def main():
     with open(destination_file_path,"w") as destination_file : 
         destination_file.writelines(model_list)
 
-    # get import index and route index
-
+    # get import index
     for app in range(len(app_file_list)) : 
         if "function App()" in app_file_list[app]:
             import_index = app
         elif "{/* projects */}" in app_file_list[app] : 
-            project_section_link_index = app 
-        elif "{/* development */}" in app_file_list[app] : 
+            new_section_link_index = app 
+        elif "{/* news */}" in app_file_list[app] : 
             dev_section_link_index = app 
         elif "{/* courses */}" in app_file_list[app] : 
+            project_section_link_index = app 
+        elif "</Routes>" in app_file_list[app] : 
             courses_section_link_index = app 
-        elif "<Routes/>" in app_file_list[app] : 
-            closing_tag_routes_index = app 
 
-    # import file in the app.js
-    app_file_list.insert(import_index-1,"import {"+post_name_page+ '}' + " from './blog_posts/" + folder_name + "/"+post_name_page+"'\n")
+    # import file in the app.js and blog relative link
+    app_file_list.insert(import_index-1,"import {"+post_name_page+ '}' + " from './blog_posts/" + folder_name + "/"+post_name_page+"';\n" + "import {" + post_name + "} from" + f"'./tools/{folder_name}';\n")
+    
+    # import route index
 
     # add link inside app file
+    blog_link_app_file = "\t"+ "\t"+ "\t"+"<Route path = {`/$"+post_blog_props["relative_link"]+"`} element ={<" + post_name_page + "/>} />" + new_line 
     if folder_name == "development":
-        app_file_list.insert(courses_section_link_index - 1,)
+        app_file_list.insert(dev_section_link_index + 1 ,blog_link_app_file)
+    elif folder_name == "courses" : 
+        app_file_list.insert(courses_section_link_index + 1,blog_link_app_file)
+    elif folder_name == "news": 
+        app_file_list.insert(new_section_link_index + 1,blog_link_app_file)
+    elif folder_name == "projects" : 
+        app_file_list.insert(project_section_link_index + 1,blog_link_app_file)
+
+    with open(app_file_path,"w") as destination_app_file:
+        destination_app_file.writelines(app_file_list)
+
 
 if __name__ == "__main__" :
     main() 
