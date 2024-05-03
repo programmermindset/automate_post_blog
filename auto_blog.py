@@ -1,10 +1,10 @@
-from dependecies import get_first_and_second_letter,add_html_elements,tag_and_and_attribute_dic,create_blog_post_info,create_blog_post_link
+from dependecies import get_first_and_second_letter,add_html_elements,tag_and_and_attribute_dic,create_blog_post_info,create_blog_post_link,html_entities
 
 def main(): 
 
     start_line_number = 36
     blog_post_file_path = "C:/Users/mona_gmg/Desktop/automate_post/text_init.txt"
-    source_file_path = "C:/Users/mona_gmg/Desktop/automate_post/model.txt"
+    model_file_path = "C:/Users/mona_gmg/Desktop/automate_post/model.txt"
     post_info_path = "C:/Users/mona_gmg/Desktop/automate_post/post_info.txt"
 
     print("choose the destination folder : \n 1.development\n 2.courses\n 3.news\n 4.projects \n" )
@@ -47,9 +47,9 @@ def main():
     image_index = 0
 
     # ------open files--------
-    with open(post_info_path,"r") as post_file, open(source_file_path,"r") as source_file, open(blog_post_file_path,"r") as blog_post_file,open(app_file_path,"r") as app_file: 
+    with open(post_info_path,"r") as post_file, open(model_file_path,"r") as model_file, open(blog_post_file_path,"r") as blog_post_file,open(app_file_path,"r") as app_file: 
         post_info_list = post_file.readlines()
-        model_list = source_file.readlines()
+        model_list = model_file.readlines()
         blog_post_list = blog_post_file.readlines()
         app_file_list = app_file.readlines()
 
@@ -63,14 +63,16 @@ def main():
 
     # -------text-init modif and add tags-------
     for blog in blog_post_list :
+        #create html entities
+        blog_with_html_ent = html_entities(blog)
 
         first_and_second_letter = get_first_and_second_letter(blog)
-        new_blog_line = add_html_elements(first_and_second_letter,blog,post_name,image_index)
+        new_blog_line = add_html_elements(first_and_second_letter,blog_with_html_ent,post_name,image_index)
         if first_and_second_letter == "im" :              
             image_index +=1
 
         new_blog_post_list.append(new_blog_line)
-
+        print(blog_with_html_ent)
     # ---- add import post_info head into----
     model_list.insert(3,"import { " + post_name + ' } from "../../tools/' + folder_name +'";\n')
     # add blog title

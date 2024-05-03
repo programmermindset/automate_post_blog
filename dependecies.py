@@ -53,3 +53,56 @@ def add_html_elements(first_and_second_letter,blog,post_name,image_index):
     else : 
         new_blog_line = tab + "<img src={"+ post_name + ".post_images["+str(image_index)+']} alt="" />'
     return new_blog_line
+
+def html_entities(texts):
+    
+    new_text = ""
+    if texts != "\n":
+        for text in texts: 
+            if text == "!" : 
+                new_text += "&#33;"
+            elif text == '"' : 
+                new_text += "&#34;"
+            elif text == '#' : 
+                new_text += "&#35;"
+            elif text == '$' : 
+                new_text += "&#36;"
+            elif text == '%' : 
+                new_text += "&#37;"
+            elif text == '&' : 
+                new_text += "&#38;"
+            elif text == "'" : 
+                new_text += "&#39;"
+            elif text == '(' : 
+                new_text += "&#40;"
+            elif text == ')' : 
+                new_text += "&#41;"
+            elif text == '*' : 
+                new_text += "&#42;"
+            elif text == '+' : 
+                new_text += "&#43;"
+            elif text == '-' : 
+                new_text += "&#45;"
+            elif text == '/' : 
+                new_text += "&#47;"
+            elif text == ':' : 
+                new_text += "&#58;"
+            elif text == ';' : 
+                new_text += "&#59;"
+            elif text == '=' : 
+                new_text += "&#61;"
+            elif text == '<' : 
+                new_text += "&#60;"
+            elif text == '?' : 
+                new_text += "&#63;"
+            elif text == '@' : 
+                new_text += "&#64;"
+            elif text == '[' : 
+                new_text += "&#91;"
+            elif text == ']' : 
+                new_text += "&#93;"
+            else : 
+                new_text += text
+        
+    
+    return new_text
